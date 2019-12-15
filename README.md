@@ -13,9 +13,15 @@ From branch *start/docker_rails* :
 
 ## Creating Rails app
 
+* Get gems from **Gemfile** :
 ```
 docker-compose run --rm web bundle install
 ```
+
+* Create app with **postgresql** as database and without *tests* (**-T**), without *git* (**-G**) and without executing *bundle install* (**-B**):
+```
+docker-compose run --rm bin/rails new -TGB -d postgresql 
+``` 
 
 * Change owner of created files :
 ```
@@ -33,7 +39,7 @@ gem 'rspec-rails', '~> 3.8'
 * Then, from a Rails container :
 
 ```
-docker-compose run --rm web bin/rails rspec:install
+docker-compose run --rm web bin/rails generate rspec:install
 ```
 
 ## Configuring Database
