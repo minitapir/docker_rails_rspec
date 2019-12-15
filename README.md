@@ -9,7 +9,7 @@
 
 # Getting started 
 
-From branch *start/docker_rails*
+From branch *start/docker_rails* :
 
 ## Creating Rails app
 
@@ -17,13 +17,27 @@ From branch *start/docker_rails*
 docker-compose run --rm web bundle install
 ```
 
-* Change owner of created files
+* Change owner of created files :
 ```
 chown -R $USER:$USER .
 ```
 
+## Setting up RSpec
+
+* In **Gemfile** :
+
+```ruby
+gem 'rspec-rails', '~> 3.8'
+```
+
+* Then, from a Rails container :
+
+```
+docker-compose run --rm web bin/rails rspec:install
+```
+
 ## Configuring Database
-* Create and set environment variables folder
+* Create and set environment variables folder (**.env**)
 ```
 mkdir -p .env/development/
 ```
@@ -34,6 +48,10 @@ POSTGRES_PASSWORD=password_db
 POSTGRES_DB=my_app_development
 ```
 
+* Create the databases needed :
+```
+docker-compose run --rm web bin/rails db:create
+```
 
 ## Spinning up the Rails app
 ```
